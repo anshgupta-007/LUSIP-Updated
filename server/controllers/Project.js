@@ -2,6 +2,7 @@ const { default: mongoose } = require('mongoose');
 const Project = require('../models/projectSchema');
 const Applied=require("../models/appliedSchema");
 const User=require("../models/userSchema");
+const { Op } = require('sequelize');
 require('dotenv').config();
 
 
@@ -43,34 +44,100 @@ exports.createProject = async (req, res) => {
   }
 };
 
+// exports.getAllProjects = async (req, res) => {
+//   try {
+//     // Fetch all projects and include the associated instructor (User) details
+//     //console.log("!");
+//     const allProject = await Project.findAll({
+//       include: [
+//         {
+//           model: User, // Refers to the User model
+//           as: 'instructorId', // Alias defined in the association
+//           attributes: ['id', 'firstName', 'lastName'], // Specify attributes to include
+//         },
+//       ],
+//     });
+//     //console.log("Hello=>",allProject[0]);
+
+//     //console.log("12");
+
+//     if (!allProject || allProject.length === 0) {
+//       return res.status(200).json({
+//         success: false,
+//         message: 'No Projects Found',
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: 'All Projects Fetched Successfully',
+//       allProject: allProject,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json({
+//       success: false,
+//       message: 'Error in fetching projects',
+//       mess: err.message,
+//     });
+//   }
+// };
+
 exports.getAllProjects = async (req, res) => {
   try {
-    // Fetch all projects and include the associated instructor (User) details
-    console.log("!");
-    const allProject = await Project.findAll({
+    // Get the logged-in user's ID
+    const userId = req.user.id; // Assuming user ID is available in the request object from auth middleware
+
+    // Find all projects the user has already applied to
+    const userApplications = await Applied.findAll({
+      where: { 
+        student: userId,
+      },
+      attributes: ['project'],
+      raw: true
+    });
+
+    // Extract just the project IDs into an array
+    const appliedProjectIds = userApplications.map(app => app.project);
+    
+    // Set up the where condition to exclude projects the user has applied to
+    let whereCondition = {};
+    if (appliedProjectIds.length > 0) {
+      whereCondition.id = {
+        [Op.notIn]: appliedProjectIds
+      };
+    }
+
+    // Fetch all projects except those the user has applied to
+    const allProjects = await Project.findAll({
+      where: whereCondition,
       include: [
         {
-          model: User, // Refers to the User model
-          as: 'instructorId', // Alias defined in the association
-          attributes: ['id', 'firstName', 'lastName'], // Specify attributes to include
+          model: User,
+          as: 'instructorId',
+          attributes: ['id', 'firstName', 'lastName'],
         },
       ],
     });
-    console.log("Hello=>",allProject[0]);
 
-    console.log("12");
-
-    if (!allProject || allProject.length === 0) {
-      return res.status(404).json({
+    if (!allProjects || allProjects.length === 0) {
+      return res.status(200).json({
         success: false,
-        message: 'No Projects Found',
+        message: 'No Available Projects Found',
       });
     }
 
+    // For each project, add an isApplied flag (which will be false for all projects in this list)
+    const projectsWithApplicationStatus = allProjects.map(project => {
+      const projectObj = project.toJSON();
+      projectObj.isApplied = false;
+      return projectObj;
+    });
+
     return res.status(200).json({
       success: true,
-      message: 'All Projects Fetched Successfully',
-      allProject: allProject,
+      message: 'Available Projects Fetched Successfully',
+      allProject: projectsWithApplicationStatus,
     });
   } catch (err) {
     console.log(err);

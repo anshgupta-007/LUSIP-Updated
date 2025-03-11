@@ -28,6 +28,14 @@ const Applied = sequelize.define('Applied', {
     },
     allowNull: false,         // Field is required
   },
+  whyShouldWeSelectYou:{
+    type: DataTypes.STRING,   // Why should we select you is a string
+    allowNull: false,         // Field is required
+  },
+  preference:{
+    type: DataTypes.STRING,   // Preference is a string
+    allowNull: false,         // Field is required
+  },
   status: {
     type: DataTypes.ENUM('Pending', 'Approved', 'Declined'),  // Enum for status field
     allowNull: false,         // Field is required

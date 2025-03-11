@@ -18,7 +18,7 @@ const { auth, isInstructor, isStudent,isAdmin} = require("../middlewares/auth")
 
 router.post("/createProject",auth,isInstructor,createProject);
 
-router.get("/getallProjects",getAllProjects);
+router.get("/getallProjects",auth,getAllProjects);
 
 router.post("/updateProject/:projectId",auth,isInstructor,updateProject);
 

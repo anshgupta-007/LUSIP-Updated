@@ -15,6 +15,9 @@ require('dotenv').config();
 
 exports.applyOnProject = async (req, res) => {
     const { projectId, instructorId } = req.params;
+    const {whyShouldWeSelectYou,preference} = req.body;
+    console.log("whyShouldWeSelectYou",whyShouldWeSelectYou);
+    console.log("prefernce",preference);
     const userId = req.user.id;
     console.log(userId,projectId,instructorId);
     try {
@@ -31,15 +34,25 @@ exports.applyOnProject = async (req, res) => {
         }
 
         // Check if the user has reached the limit for applications (assuming limit is 2)
-        const totalApplied = await Applied.count({
-            where: { student: userId }
+        const totalApplied = await Applied.findAll({
+            where: { student: userId },
         });
 
-        if (totalApplied >= 2) {
+        if (totalApplied.length >= 2) {
             return res.status(200).json({
                 success: true,
                 message: "You have reached the limit to apply",
             });
+        }
+
+        console.log(totalApplied);
+        for(let i=0;i<totalApplied.length;i++){
+            if(totalApplied[i].preference==preference){
+                return res.status(200).json({
+                    success: true,
+                    message: "You have already applied for this preference",
+                });
+            }
         }
 
         // Fetch user and project details
@@ -51,6 +64,7 @@ exports.applyOnProject = async (req, res) => {
                 attributes: ['firstName', 'lastName', 'email']
             }
         });
+
         console.log("undefined",user);
         if (!user || !project) {
             return res.status(404).json({
@@ -58,6 +72,7 @@ exports.applyOnProject = async (req, res) => {
                 message: "User or Project not found",
             });
         }
+
 
         // Prepare names for the email content
         const name = `${user.firstName} ${user.lastName}`;
@@ -86,7 +101,9 @@ exports.applyOnProject = async (req, res) => {
                 project:projectId,
                 student: userId,
                 status: "Pending",
-                instructor:instructorId
+                instructor:instructorId,
+                whyShouldWeSelectYou:whyShouldWeSelectYou,
+                preference:preference,
             });
 
             return res.status(200).json({

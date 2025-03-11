@@ -1,7 +1,8 @@
 // userSchema.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
-
+const mailSender = require('../utils/mailSender');
+const welcomeTemplate=require('../mail/templates/welcomeTemplate');
 const User = sequelize.define('User', {
   firstName: {
     type: DataTypes.STRING,
@@ -18,6 +19,26 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  SGPA:{
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  college:{
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  year: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  branch: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   accountType: {
     type: DataTypes.ENUM('Admin', 'Student', 'Instructor'),
@@ -44,5 +65,6 @@ const User = sequelize.define('User', {
     allowNull: true,
   },
 }, { timestamps: false });
+
 
 module.exports = User;

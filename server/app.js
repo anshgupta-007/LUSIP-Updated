@@ -9,7 +9,7 @@ const app = express();
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: true}));  
+  origin: 'http://localhost:3000'}));  
 app.set("trust proxy",1); 
 app.use(express.json());
 
