@@ -27,7 +27,7 @@ const LUSIPLandingPage = () => {
       <section className="h-screen flex items-center justify-center text-center px-4 bg-gradient-to-br from-sky-400 to-sky-500">
         <div className="max-w-3xl">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-white drop-shadow-md">
-            LUSIP - 2024
+            LUSIP - 2025
           </h1>
           <p className="text-lg sm:text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
             The LNMIIT Undergraduate Summer Internship Program
@@ -52,7 +52,7 @@ const LUSIPLandingPage = () => {
             <h2 className="text-2xl sm:text-3xl font-bold text-blue-600">About the Program</h2>
           </div>
           <p className="text-base sm:text-lg leading-relaxed text-gray-700">
-            LUSIP announces its 12th edition for the year 2024. This program offers an invaluable platform to engage in cutting-edge research 
+            LUSIP announces its 12th edition for the year 2025. This program offers an invaluable platform to engage in cutting-edge research 
             and challenging projects with esteemed faculty and mentors of The LNM Institute of Information Technology. 
             It's a unique opportunity to gain practical experience and insight into professional life, 
             available to undergraduate students across the world.
@@ -105,10 +105,10 @@ const LUSIPLandingPage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { title: "Student Application Opens", date: "20th April 2024" },
-              { title: "Student Application Ends", date: "10th May 2024" },
-              { title: "Results Announced", date: "20th May 2024" },
-              { title: "Project Starts", date: "27th May 2024" }
+              { title: "Student Application Opens", date: "20th April 2025" },
+              { title: "Student Application Ends", date: "10th May 2025" },
+              { title: "Results Announced", date: "20th May 2025" },
+              { title: "Project Starts", date: "27th May 2025" }
             ].map((item, index) => (
               <div 
                 key={index} 

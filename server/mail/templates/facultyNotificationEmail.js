@@ -109,7 +109,7 @@ const facultyNotificationEmail = (facultyName, studentName, projectName) => {
 
         <!-- Footer -->
         <div class="footer">
-            <p>© 2024 LUSIP. All rights reserved.</p>
+            <p>© 2025 LUSIP. All rights reserved.</p>
             <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
         </div>
     </body>

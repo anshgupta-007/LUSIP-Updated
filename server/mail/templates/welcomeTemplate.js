@@ -69,7 +69,7 @@ const welcomeTemplate = (email) => {
                 <p>You can now log in to your account using your credentials.</p>
             </div>
             <div class="footer">
-                <p>© 2024 Your Company. All rights reserved.</p>
+                <p>© 2025 Your Company. All rights reserved.</p>
             </div>
         </div>
     </body>

@@ -109,7 +109,7 @@ const otpTemplate = (otp) => {
             </div>
         </div>
         <div class="footer">
-            <p>© 2024 Your Company. All rights reserved.</p>
+            <p>© 2025 Your Company. All rights reserved.</p>
             <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
         </div>
     </body>
