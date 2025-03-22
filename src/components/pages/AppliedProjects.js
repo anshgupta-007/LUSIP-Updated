@@ -107,7 +107,7 @@ const AppliedProjects = () => {
                 </div>
               </div>
               
-              {project.status === 'Pending' && (
+              {/* {project.status === 'Pending' && (
                 <button
                   onClick={() => handleCancelRequest(project.id)}
                   className="absolute top-4 right-4 text-red-600 hover:text-red-800"
@@ -115,7 +115,7 @@ const AppliedProjects = () => {
                 >
                   <MdDeleteForever className="text-2xl" />
                 </button>
-              )}
+              )} */}
               
               <p className="text-gray-600 mb-2">
                 <span className="font-semibold">Instructor:</span> {project.projectId.instructorId?.firstName} {project.projectId.instructorId?.lastName}

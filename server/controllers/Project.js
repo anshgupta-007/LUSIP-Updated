@@ -92,7 +92,7 @@ exports.getAllProjects = async (req, res) => {
       req.cookies.token ||
       req.header("Authorization")?.replace("Bearer ", "");
 
-    console.log("Token value:", token, "Type:", typeof token);
+    // console.log("Token value:", token, "Type:", typeof token);
 
     // Check if token is null, an empty string, or the string "null"
     if (!token || token.trim() === "" || token === "null") {
