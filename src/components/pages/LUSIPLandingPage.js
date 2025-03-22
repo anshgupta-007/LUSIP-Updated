@@ -38,7 +38,7 @@ const LUSIPLandingPage = () => {
                       transition-all duration-300 hover:bg-blue-50 hover:shadow-xl 
                       transform hover:scale-105 inline-flex items-center group"
           >
-            Apply Now
+            View Projects
             <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

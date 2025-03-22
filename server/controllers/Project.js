@@ -3,6 +3,7 @@ const Project = require('../models/projectSchema');
 const Applied=require("../models/appliedSchema");
 const User=require("../models/userSchema");
 const { Op } = require('sequelize');
+const jwt=require('jsonwebtoken');
 require('dotenv').config();
 
 
@@ -85,66 +86,92 @@ exports.createProject = async (req, res) => {
 
 exports.getAllProjects = async (req, res) => {
   try {
-    // Get the logged-in user's ID
-    const userId = req.user.id; // Assuming user ID is available in the request object from auth middleware
+    // Retrieve token from body, cookies, or header
+    let token =
+      req.body.token ||
+      req.cookies.token ||
+      req.header("Authorization")?.replace("Bearer ", "");
 
-    // Find all projects the user has already applied to
-    const userApplications = await Applied.findAll({
-      where: { 
-        student: userId,
-      },
-      attributes: ['project'],
-      raw: true
-    });
+    console.log("Token value:", token, "Type:", typeof token);
 
-    // Extract just the project IDs into an array
-    const appliedProjectIds = userApplications.map(app => app.project);
-    
-    // Set up the where condition to exclude projects the user has applied to
-    let whereCondition = {};
-    if (appliedProjectIds.length > 0) {
-      whereCondition.id = {
-        [Op.notIn]: appliedProjectIds
-      };
+    // Check if token is null, an empty string, or the string "null"
+    if (!token || token.trim() === "" || token === "null") {
+      console.log("Token is null or invalid, fetching all projects...");
+
+      // Fetch all projects since user is not logged in
+      const allProjects = await Project.findAll({
+        include: [
+          {
+            model: User,
+            as: "instructorId",
+            attributes: ["id", "firstName", "lastName"],
+          },
+        ],
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "All projects fetched successfully",
+        allProject: allProjects.map((project) => ({
+          ...project.toJSON(),
+          isApplied: false, // No applications if user is not logged in
+        })),
+      });
     }
 
-    // Fetch all projects except those the user has applied to
-    const allProjects = await Project.findAll({
+    // If token is valid, decode and verify it
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid Token - User Does Not Exist",
+      });
+    }
+
+    // Fetch projects the user has already applied to
+    const appliedProjects = await Applied.findAll({
+      where: { student: user.id },
+      attributes: ["project"],
+      raw: true,
+    });
+
+    // Extract applied project IDs
+    const appliedProjectIds = appliedProjects.map((app) => app.project);
+
+    // Set up where condition to exclude projects already applied to
+    const whereCondition =
+      appliedProjectIds.length > 0
+        ? { id: { [Op.notIn]: appliedProjectIds } }
+        : {};
+
+    // Fetch projects excluding those already applied to by the user
+    const availableProjects = await Project.findAll({
       where: whereCondition,
       include: [
         {
           model: User,
-          as: 'instructorId',
-          attributes: ['id', 'firstName', 'lastName'],
+          as: "instructorId",
+          attributes: ["id", "firstName", "lastName"],
         },
       ],
     });
 
-    if (!allProjects || allProjects.length === 0) {
-      return res.status(200).json({
-        success: false,
-        message: 'No Available Projects Found',
-      });
-    }
-
-    // For each project, add an isApplied flag (which will be false for all projects in this list)
-    const projectsWithApplicationStatus = allProjects.map(project => {
-      const projectObj = project.toJSON();
-      projectObj.isApplied = false;
-      return projectObj;
-    });
-
     return res.status(200).json({
       success: true,
-      message: 'Available Projects Fetched Successfully',
-      allProject: projectsWithApplicationStatus,
+      message: "Available Projects Fetched Successfully",
+      allProject: availableProjects.map((project) => ({
+        ...project.toJSON(),
+        isApplied: false,
+      })),
     });
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching projects:", err);
     return res.status(500).json({
       success: false,
-      message: 'Error in fetching projects',
-      mess: err.message,
+      message: "Error in fetching projects",
+      error: err.message,
     });
   }
 };

@@ -473,19 +473,25 @@ exports.about = async (req, res) => {
 exports.logout = (req, res) => {
   try {
     console.log("Inside Logout");
+
     // Clear the cookie by setting it to an empty value and expiry date in the past
-    res.clearCookie('token', {
+    res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set secure to true in production
-      sameSite: 'strict', // Adjust sameSite setting based on your needs
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
     });
 
-    res.status(200).json({ success: true, message: "User logged out successfully." });
+    // Instruct client to remove Authorization header token
+    res.status(200).json({
+      success: true,
+      message: "User logged out successfully. Please remove Authorization token from headers on the client side.",
+    });
   } catch (error) {
     console.error("Error during logout:", error);
     res.status(500).json({ success: false, message: "Failed to log out the user." });
   }
 };
+
 
 exports.getallInstructor = async (req, res) => {
   try {

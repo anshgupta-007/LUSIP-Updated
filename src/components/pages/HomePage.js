@@ -35,7 +35,8 @@ const HomePage = () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/getallProjects`,
-        axiosConfig
+        axiosConfig,
+
       );
 
       if (response.status === 200) {
