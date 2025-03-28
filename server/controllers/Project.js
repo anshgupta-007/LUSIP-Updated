@@ -96,7 +96,7 @@ exports.getAllProjects = async (req, res) => {
 
     // Check if token is null, an empty string, or the string "null"
     if (!token || token.trim() === "" || token === "null") {
-      console.log("Token is null or invalid, fetching all projects...");
+      // console.log("Token is null or invalid, fetching all projects...");
 
       // Fetch all projects since user is not logged in
       const allProjects = await Project.findAll({

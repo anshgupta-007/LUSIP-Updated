@@ -243,8 +243,6 @@ exports.changeStatus = async (req, res) => {
     }
 };
 
-
-
 exports.cancelApplicationController = async (req, res) => {
     try {
         const applyId = req.body.applyId;

@@ -492,7 +492,6 @@ exports.logout = (req, res) => {
   }
 };
 
-
 exports.getallInstructor = async (req, res) => {
   try {
     console.log("Inside Get all Instructor");
