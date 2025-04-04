@@ -29,7 +29,7 @@ exports.resetPasswordToken = async (req, res) => {
       });
   
       // Construct the URL for password reset
-      const URL = `${process.env.REACT_APP_SERVER_URL}update-password/${token}`;
+      const URL = `${process.env.CLIENT_URL}/update-password/${token}`;
       console.log(URL);
   
       // Send the password reset email

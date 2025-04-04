@@ -102,14 +102,14 @@ const projectEnrollmentEmail = (projectName, name) => {
             </div>
             <!-- Support Info -->
             <div class="support">
-                If you have any questions or need assistance, feel free to contact us at <a href="mailto:22ucc018@lnmiit.ac.in">22ucc018@lnmiit.ac.in</a>. We're here to help!
+                If you have any questions or need assistance, feel free to contact us at <a href="sandeep.saini@lnmiit.ac.in">sandeep.saini@lnmiit.ac.in</a>. We're here to help!
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
             <p>© 2025 LUSIP. All rights reserved.</p>
-            <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
+            {% comment %} <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p> {% endcomment %}
         </div>
     </body>
     

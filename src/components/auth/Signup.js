@@ -395,27 +395,31 @@ const Signup = () => {
                 
                 <div className="relative">
                   <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-1">
-                    Year
+                    Current Year of Studying
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
-                      <Calendar size={18} />
-                    </div>
-                    <input
-                      type="text"
-                      id="year"
-                      name="year"
-                      value={user.year}
-                      onChange={handleInputs}
-                      placeholder="Year"
-                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 ${
-                        errors.year ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
-                      }`}
-                    />
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                    <Calendar size={18} />
                   </div>
-                  {errors.year && (
-                    <p className="text-red-500 text-xs mt-1">{errors.year}</p>
-                  )}
+                  <select
+                    id="year"
+                    name="year"
+                    value={user.year}
+                    onChange={handleInputs}
+                    className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition duration-300 ${
+                        errors.year ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
+                    }`}>
+                    <option value="" disabled>Select Year</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="5th Year">5th Year</option>
+                  </select>
+                </div>
+                {errors.year && (
+                  <p className="text-red-500 text-xs mt-1">{errors.year}</p>
+                )}
                 </div>
               </div>
             </div>

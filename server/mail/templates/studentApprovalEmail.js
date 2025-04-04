@@ -101,18 +101,18 @@ const studentApprovalEmail = (studentName, facultyName, projectName) => {
             </div>
             
             <!-- Call-to-action button -->
-            <a href="https://yourstudentdashboardlink.com" class="cta">Visit Website</a>
+            {% comment %} <a href="https://yourstudentdashboardlink.com" class="cta">Visit Website</a> {% endcomment %}
             
             <!-- Support Info -->
             <div class="support">
-                If you have any questions or need assistance, feel free to contact us at <a href="mailto:support@lnmiit.ac.in">support@lnmiit.ac.in</a>. We're here to help!
+                If you have any questions or need assistance, feel free to contact us at <a href="mailto:sandeep.saini@lnmiit.ac.in">sandeep.saini@lnmiit.ac.in</a>. We're here to help!
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
             <p>© 2025 LUSIP. All rights reserved.</p>
-            <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
+            {% comment %} <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p> {% endcomment %}
         </div>
     </body>
     

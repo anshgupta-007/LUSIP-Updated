@@ -91,7 +91,7 @@ const passwordResetEmail = (userName, resetLink, institutionName = "The LNM Inst
 
             <div class="footer">
                 <p>© 2025 ${institutionName}. All rights reserved.</p>
-                <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
+                {% comment %} <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p> {% endcomment %}
             </div>
         </div>
     </body>

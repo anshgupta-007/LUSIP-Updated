@@ -5,13 +5,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdDeleteForever } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import LoadingSpinner from "../LoadingSpinner";
+import { useNavigate } from "react-router-dom";
+
 
 const AppliedProjects = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showReasonModal, setShowReasonModal] = useState(false);
-  
+  const Navigate = useNavigate();
   const fetchProjects = async () => {
     try {
       setIsLoading(true);
@@ -25,8 +27,10 @@ const AppliedProjects = () => {
       console.log("Printing data d", response.data.appliedDetails);
       setProjects(response.data.appliedDetails || []);
     } catch (error) {
+
       console.error("Error fetching project data:", error);
-      toast.error("Failed to fetch applied projects.");
+      Navigate("/login");
+      // toast.error("Failed to fetch applied projects.");
     } finally {
       setIsLoading(false);
     }

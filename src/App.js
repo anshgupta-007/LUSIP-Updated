@@ -19,6 +19,7 @@ import Requests from "./components/pages/Requests";
 import ForgotPassword from "./components/pages/ForgotPassword";
 import UpdatePassword from "./components/pages/UpdatePassword";
 import LUSIPLandingPage from "./components/pages/LUSIPLandingPage";
+import ResultPage from "./components/pages/ResultPage";
 
 export const UserContext = createContext();
 
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/passwordReset" element={<ForgotPassword />} />
           <Route path="/requests" element={<Requests />} />
           <Route path="/update-password/:token" element={<UpdatePassword />} />
+          <Route path="/results" element={< ResultPage/>} />
         </Routes>
         {/* ToastContainer component to enable toast notifications */}
         <ToastContainer position="bottom-left" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />

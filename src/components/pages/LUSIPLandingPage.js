@@ -10,6 +10,9 @@ import {
   ChevronRight 
 } from 'lucide-react';
 
+import LNMIITHOME from "../../assets/LNMIITHOME.jpg"
+
+
 const LUSIPLandingPage = () => {
     const navigate = useNavigate();
   const scrollToSection = (id) => {
@@ -21,26 +24,51 @@ const LUSIPLandingPage = () => {
     navigate('/projects');
   };
 
+  const navigateToResults = () => {
+    navigate('/results');
+  };
+
   return (
     <div className="min-h-screen bg-blue-50">
       {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center text-center px-4 bg-gradient-to-br from-sky-400 to-sky-500">
-        <div className="max-w-3xl">
+      <section
+        className="h-screen flex items-center justify-center text-center px-4 relative"
+        style={{
+          backgroundImage: `url(${LNMIITHOME})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Add an overlay to ensure text is readable */}
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        
+        <div className="max-w-3xl relative z-10">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-white drop-shadow-md">
             LUSIP - 2025
           </h1>
           <p className="text-lg sm:text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
             The LNMIIT Undergraduate Summer Internship Program
           </p>
-          <button 
-            onClick={navigateToProjects} 
-            className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 rounded-full font-semibold text-base sm:text-lg 
-                      transition-all duration-300 hover:bg-blue-50 hover:shadow-xl 
-                      transform hover:scale-105 inline-flex items-center group"
-          >
-            View Projects
-            <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button 
+              onClick={navigateToProjects} 
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 rounded-full font-semibold text-base sm:text-lg 
+                        transition-all duration-300 hover:bg-blue-50 hover:shadow-xl 
+                        transform hover:scale-105 inline-flex items-center group"
+            >
+              View Projects
+              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button 
+              onClick={navigateToResults} 
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-full font-semibold text-base sm:text-lg 
+                        transition-all duration-300 hover:bg-blue-700 hover:shadow-xl 
+                        transform hover:scale-105 inline-flex items-center group border border-white"
+            >
+              View Results
+              <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
       </section>
 

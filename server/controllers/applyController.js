@@ -272,3 +272,38 @@ exports.cancelApplicationController = async (req, res) => {
         res.status(500).json({ success: false, message: "Failed to cancel the application." });
     }
 };
+
+exports.fetchApprovedStudents = async (req, res) => {
+    try {
+      const approvedStudents = await Applied.findAll({
+        where: { status: 'Approved' },
+        include: [
+          {
+            model: User,
+            as: 'studentId',
+            attributes: ['firstName', 'lastName', 'college']
+          },
+          {
+            model: Project,
+            as: 'projectId',
+            attributes: ['projectName', 'mode']
+          }
+        ]
+      });
+  
+      // Formatting the result
+      const result = approvedStudents.map(item => ({
+        mode: item.projectId.mode,
+        studentName: `${item.studentId.firstName} ${item.studentId.lastName}`,
+        college: item.studentId.college,
+        projectName: item.projectId.projectName
+      }));
+  
+      return res.status(200).json({ success: true, data: result });
+    } catch (error) {
+      console.error("Error fetching approved students:", error);
+      return res.status(500).json({ success: false, message: "Server error" });
+    }
+  };
+  
+

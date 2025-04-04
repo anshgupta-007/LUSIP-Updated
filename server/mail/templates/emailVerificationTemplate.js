@@ -105,12 +105,12 @@ const otpTemplate = (otp) => {
                 <p>This OTP is valid for the next 5 minutes. If you didn't request this, please ignore this email.</p>
             </div>
             <div class="support">
-                Need help? Contact us at <a href="mailto:22ucc018@lnmiit.ac.in">22ucc018@lnmiit.ac.in</a>.
+                Need help? Contact us at <a href="mailto:sandeep.saini@lnmiit.ac.in">sandeep.saini@lnmiit.ac.in</a>.
             </div>
         </div>
         <div class="footer">
-            <p>© 2025 Your Company. All rights reserved.</p>
-            <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p>
+            <p>© 2025 The LNM Institute of Information Technology. All rights reserved.</p>
+            {% comment %} <p><a href="#">Unsubscribe</a> | <a href="#">Privacy Policy</a></p> {% endcomment %}
         </div>
     </body>
     
