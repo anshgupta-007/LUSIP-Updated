@@ -161,7 +161,7 @@ const AppliedProjects = () => {
                 <p className="text-sm font-medium text-indigo-800">Preference: {getPreferenceText(selectedProject.preference)}</p>
               </div>
               
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">Why should we hire you?</h3>
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">Why should we select you?</h3>
               <div className="bg-gray-50 p-4 rounded border border-gray-200">
                 <p className="text-gray-700 whitespace-pre-wrap">
                   {selectedProject.whyShouldWeSelectYou || "No reason provided."}
