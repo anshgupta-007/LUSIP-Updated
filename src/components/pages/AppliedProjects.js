@@ -24,11 +24,11 @@ const AppliedProjects = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("Printing data d", response.data.appliedDetails);
+      // console.log("Printing data d", response.data.appliedDetails);
       setProjects(response.data.appliedDetails || []);
     } catch (error) {
 
-      console.error("Error fetching project data:", error);
+      // console.error("Error fetching project data:", error);
       Navigate("/login");
       // toast.error("Failed to fetch applied projects.");
     } finally {
